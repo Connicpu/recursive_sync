@@ -1,11 +1,10 @@
 [package]
 name = "recursive_sync"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Connorcpu <connorcpu@live.com>"]
 build = "build.rs"
 description = "Recursive-permissive Mutex implementation for Rust"
 license = "MIT"
-license-file = "LICENSE"
 repository = "https://github.com/Connorcpu/recursive_sync"
 
 [build-dependencies]

@@ -44,14 +44,17 @@ struct rs_mutex *rs_mutex_alloc() {
   #else
 
   if (pthread_mutexattr_init(&rmtx->attr)) {
+    free(rmtx);
     return NULL;
   }
   if (pthread_mutexattr_settype(&rmtx->attr, PTHREAD_MUTEX_RECURSIVE)) {
     pthread_mutexattr_destroy(&rmtx->attr);
+    free(rmtx);
     return NULL;
   }
   if (pthread_mutex_init(&rmtx->mutex, &rmtx->attr)) {
     pthread_mutexattr_destroy(&rmtx->attr);
+    free(rmtx);
     return NULL;
   }
 
