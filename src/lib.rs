@@ -1,4 +1,5 @@
 #![feature(unsafe_destructor)]
+#![allow(unstable)]
 
 use std::cell::UnsafeCell;
 use std::ops::{Deref, DerefMut};
@@ -7,6 +8,9 @@ pub struct RMutex<T> {
     mutex: RMutexImpl,
     cell: UnsafeCell<T>,
 }
+
+unsafe impl<T: Send> Send for RMutex<T> { }
+unsafe impl<T> Sync for RMutex<T> { }
 
 // guard isn't used because it just needs to exist.
 // its dropping releases the mutex.
