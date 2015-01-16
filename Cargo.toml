@@ -1,0 +1,8 @@
+[package]
+name = "recursive_sync"
+version = "0.0.1"
+authors = ["Connorcpu <connorcpu@live.com>"]
+build = "build.rs"
+
+[build-dependencies]
+gcc = "*"
