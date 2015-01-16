@@ -5,6 +5,8 @@ extern crate "recursive_sync" as rs;
 use rs::RMutex;
 use std::thread::Thread;
 use std::sync::Arc;
+use std::io::timer::sleep;
+use std::time::duration::Duration;
 
 #[test]
 fn recursive_test() {
@@ -22,14 +24,19 @@ fn recursive_test() {
 
 #[test]
 fn test_guarding() {
-    let count = 10000;
+    let count = 1000;
     let mutex = Arc::new(RMutex::new(0i32));
     let mut guards = Vec::new();
 
     for _ in (0..count) {
         let mutex = mutex.clone();
         guards.push(Thread::scoped(move || {
-            *mutex.lock() += 1;
+            let mut value_ref = mutex.lock();
+            let value = *value_ref;
+
+            sleep(Duration::milliseconds(1));
+
+            *value_ref = value + 1;
         }));
     }
 
